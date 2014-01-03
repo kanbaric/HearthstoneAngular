@@ -6,15 +6,15 @@
     </tr>
     <tr ng-repeat="card in cards | filter:{ class: theClass, type: theType } | filter:search | orderBy:sort.column:sort.descending">
         <td>{{card.name}}</td>
-         <td>{{card.class}}</td>
+         <td>{{classes[card.classs]}}</td>
          <td>
-            {{card.rarity}}
+            {{qualities[card.quality]}}
         </td>
          <td>
-            {{card.type}}
+            {{types[card.type]}}
         </td>
          <td>
-            {{card.race}}
+            {{races[card.race]}}
         </td>
          <td>
             {{card.cost}}

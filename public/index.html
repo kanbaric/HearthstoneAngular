@@ -6,22 +6,23 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
-        <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.1.5/angular.min.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.6/angular.min.js"></script>
         <script src="main.js">
         </script>
     </head>
-    <body  ng-controller="CardsCtrl">
-            <div class="row">
-                <div class="col-md-12">
-                    <filtering-form></filtering-form> 
-                </div>
+
+    <body ng-controller="CardsCtrl">
+        <div class="row">
+            <div class="col-md-12">
+                <filtering-form></filtering-form> 
             </div>
-            <p>Click column names to sort</p>
-            <div class="row">
-                <div class="col-md-12">
-                    <cards-table></cards-table>
-                </div>
+        </div>
+        <p>Click column names to sort</p>
+        <div class="row">
+            <div class="col-md-12">
+                <cards-table></cards-table>
             </div>
-            <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        </div>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     </body>
 </html>
