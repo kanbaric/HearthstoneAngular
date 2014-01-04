@@ -1,3 +1,7 @@
+### Purpose ###
+
+Provide a good starting point for angular apps which can reason about hearthstone card data.
+
 ### Installation ###
 
 Clone this repo, then run:
