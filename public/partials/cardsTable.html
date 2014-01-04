@@ -1,10 +1,12 @@
+
+Showing {{filteredCards.length}} cards
 <table class="table">
     <tr>
-        <th ng-click="setOrderBy(column)" ng-repeat="column in columns">
-            {{column}}
+        <th ng-click="setOrderBy(column.map)" ng-repeat="column in columns">
+            {{column.label}}
         </th>
     </tr>
-    <tr ng-repeat="card in cards | filter:{ class: theClass, type: theType } | filter:search | orderBy:sort.column:sort.descending">
+    <tr ng-repeat="card in (filteredCards = (cards | filter:cardFilter | filter:search | orderBy:sort.column:sort.descending ))">
         <td>{{card.name}}</td>
          <td>{{classes[card.classs]}}</td>
          <td>

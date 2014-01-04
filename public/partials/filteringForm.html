@@ -8,14 +8,14 @@
             </header>
             <div class="radio">
                 <label>
-                    <input type="radio" name="classes" ng-click="setClass()">
+                    <input type="radio" name="classes" ng-click="setClass()" checked>
                     All            
                 </label>
             </div>
-            <div class="radio" ng-repeat="theClass in classes">
+            <div class="radio" ng-repeat="(classId, className) in classes">
                 <label>
-                    <input type="radio" name="classes" ng-click="setClass(theClass)">
-                    {{theClass}}           
+                    <input type="radio" name="classes" ng-click="setClass(classId)">
+                    {{className}}           
                 </label>
             </div>
         </div>
@@ -27,14 +27,14 @@
             </header>
             <div class="radio">
                 <label>
-                    <input type="radio" name="types" ng-click="setType()">
+                    <input type="radio" name="types" ng-click="setType()" checked>
                     All            
                 </label>
             </div>
-            <div class="radio" ng-repeat="theType in types">
+            <div class="radio" ng-repeat="(typeId, typeName) in types">
                 <label>
-                    <input type="radio" name="types" ng-click="setType(theType)">
-                    {{theType}}           
+                    <input type="radio" name="types" ng-click="setType(typeId)">
+                    {{typeName}}           
                 </label>
             </div>
         </div>

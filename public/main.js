@@ -72,17 +72,20 @@ Hearthstone.controller('CardsCtrl',[
     function ($scope, cardsService) {
         'use strict';
 
+        $scope.classFilter = null;
+        $scope.typeFilter = null;
+
         $scope.sort = {};
         $scope.columns = [
-            'Name',
-            'Class',
-            'Rarity',
-            'Type',
-            'Race',
-            'Cost',
-            'Attack',
-            'Health',
-            'Description'
+            { map: 'name', label: 'Name' },
+            { map: 'classs', label: 'Class' },
+            { map: 'quality', label: 'Rarity' },
+            { map: 'type', label: 'Type' },
+            { map: 'race', label: 'Race' },
+            { map: 'cost', label: 'Cost' },
+            { map: 'attack', label: 'Attack' },
+            { map: 'health', label: 'Health' },
+            { map: 'description', label: 'Description' }
         ];
 
         cardsService.getCards().then(function(cards) {
@@ -91,11 +94,16 @@ Hearthstone.controller('CardsCtrl',[
 
         cardsService.getTypes().then(function(types) {
             $scope.types = types;
-            $scope.types[0] = '';
+            delete $scope.types[0];
+            delete $scope.types[3];
+            delete $scope.types[10];
         });
 
         cardsService.getClasses().then(function(classes) {
             $scope.classes = classes;
+
+            delete $scope.classes[6];
+            delete $scope.classes[10];
         });
 
         cardsService.getRaces().then(function(races) {
@@ -112,21 +120,38 @@ Hearthstone.controller('CardsCtrl',[
             $scope.qualities = qualities;
         });
 
+        $scope.cardFilter = function(card)
+        {
+            var result = true;
+            if ($scope.classFilter !== null &&
+                card.classs !== $scope.classFilter) {
+                result = false;
+            }
 
-        $scope.setClass = function(theClass){
-            $scope.theClass = theClass;
+            if ($scope.typeFilter !== null &&
+                card.type !== $scope.typeFilter) {
+                result = false;
+            }
+
+            return result;
         };
 
-        $scope.setType = function(theType){
-            $scope.theType = theType;
+        $scope.setClass = function(classId){
+            $scope.classFilter = classId ? parseFloat(classId) : null;
+            //console.log('$scope.classFilter ' + $scope.classFilter);
+        };
+
+        $scope.setType = function(typeId){
+            $scope.typeFilter = typeId ? parseFloat(typeId) : null;
+            //console.log('$scope.typeFilter ' + $scope.typeFilter);
         };
 
         $scope.setOrderBy = function(column){
             var sort = $scope.sort;
-            if (sort.column == column.toLowerCase()) {
+            if (sort.column === column) {
                 sort.descending = !sort.descending;
             } else {
-                sort.column = column.toLowerCase();
+                sort.column = column;
                 sort.descending = false;
             }
         };
@@ -138,6 +163,7 @@ Hearthstone.directive('cardsTable', function(){
         templateUrl : '/partials/cardsTable.html'
     }
 });
+
 Hearthstone.directive('filteringForm', function(){
     return {
         restrict: 'E', 
