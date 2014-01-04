@@ -6,17 +6,17 @@ Showing {{filteredCards.length}} cards
             {{column.label}}
         </th>
     </tr>
-    <tr ng-repeat="card in (filteredCards = (cards | filter:cardFilter | filter:search | orderBy:sort.column:sort.descending ))">
+    <tr ng-repeat="card in (filteredCards = (cards | filter:cardFilter | filter:search | orderBy:sort.column:sort.descending))">
         <td>{{card.name}}</td>
-         <td>{{classes[card.classs]}}</td>
+         <td>{{card.classText}}</td>
          <td>
-            {{qualities[card.quality]}}
+            {{card.qualityText}}
         </td>
          <td>
-            {{types[card.type]}}
+            {{card.typeText}}
         </td>
          <td>
-            {{races[card.race]}}
+            {{card.raceText}}
         </td>
          <td>
             {{card.cost}}

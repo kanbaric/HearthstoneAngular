@@ -12,7 +12,40 @@ Hearthstone.factory('cardsService',[
             if (!hearthstoneData) {
                 hearthstoneData = $http.get('/cards.json').then(function (response) {
                     //console.log(response);
-                    return response.data;
+
+                    var cardArray = response.data.cards,
+                        classes = response.data.labels.classes,
+                        races = response.data.labels.races,
+                        types = response.data.labels.types,
+                        sets = response.data.labels.sets,
+                        qualities = response.data.labels.quality;
+
+                    //Remove/filter some labels
+                    delete classes[6];
+                    delete classes[10];
+                    races[0] = '';
+                    delete types[0];
+                    delete types[3];
+                    delete types[10];
+                    sets[0] = '';
+
+                    //Dereference various ids to provide searchable text properties
+                    for(var i = 0, length = cardArray.length; i < length; i++) {
+                        cardArray[i].classText = classes[cardArray[i].classs];
+                        cardArray[i].raceText = races[cardArray[i].race];
+                        cardArray[i].typeText = types[cardArray[i].type];
+                        cardArray[i].setText = sets[cardArray[i].set];
+                        cardArray[i].qualityText = qualities[cardArray[i].quality];
+                    }
+
+                    return {
+                        cards: cardArray,
+                        classes: classes,
+                        races: races,
+                        types: types,
+                        sets: sets,
+                        quality: qualities
+                    };
                 });
             }
 
@@ -27,31 +60,31 @@ Hearthstone.factory('cardsService',[
 
         function getTypes() {
             return getHearthstoneData().then(function (data) {
-                return data.labels.types
+                return data.types
             });
         }
 
         function getClasses() {
             return getHearthstoneData().then(function (data) {
-                return data.labels.classes;
+                return data.classes;
             });
         }
 
         function getRaces() {
             return getHearthstoneData().then(function (data) {
-                return data.labels.races;
+                return data.races;
             });
         }
 
         function getSets() {
             return getHearthstoneData().then(function (data) {
-                return data.labels.sets;
+                return data.sets;
             });
         }
 
         function getQualities() {
             return getHearthstoneData().then(function (data) {
-                return data.labels.quality;
+                return data.quality;
             });
         }
 
@@ -94,26 +127,18 @@ Hearthstone.controller('CardsCtrl',[
 
         cardsService.getTypes().then(function(types) {
             $scope.types = types;
-            delete $scope.types[0];
-            delete $scope.types[3];
-            delete $scope.types[10];
         });
 
         cardsService.getClasses().then(function(classes) {
             $scope.classes = classes;
-
-            delete $scope.classes[6];
-            delete $scope.classes[10];
         });
 
         cardsService.getRaces().then(function(races) {
             $scope.races = races;
-            $scope.races[0] = '';
         });
 
         cardsService.getSets().then(function(sets) {
             $scope.sets = sets;
-            $scope.sets[0] = '';
         });
 
         cardsService.getQualities().then(function(qualities) {
